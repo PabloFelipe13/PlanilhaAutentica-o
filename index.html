@@ -83,8 +83,8 @@
                 })
                 .catch((error) => {
                     switch (error.code) {
-                        case "auth/invalid-email": errorMessage.textContent = "Email inválido!"; break;
-                        case "auth/user-not-found": errorMessage.textContent = "Usuário não encontrado!"; break;
+                        case "auth/invalid-email": errorMessage.textContent = "Email invÃ¡lido!"; break;
+                        case "auth/user-not-found": errorMessage.textContent = "UsuÃ¡rio nÃ£o encontrado!"; break;
                         case "auth/wrong-password": errorMessage.textContent = "Senha incorreta!"; break;
                         default: errorMessage.textContent = "Erro: " + error.message;
                     }
@@ -103,7 +103,7 @@
                     const planilhaUrl = "https://script.google.com/macros/s/AKfycbyn4Y4XzcnlN5YH8kCxI8A4M837unM9NoM1nT_JYR-eKGOo4RGZ64DCQRiFC4LaKZ1e/exec?token=" + token;
                     window.open(planilhaUrl, "_blank"); // ?? Abre a planilha em nova guia
 
-                    // ?? Obtém o link da pasta via Apps Script e redireciona a aba principal
+                    // ?? ObtÃ©m o link da pasta via Apps Script e redireciona a aba principal
                     fetch("https://script.google.com/macros/s/AKfycbyswRUHE0usOhLIYKpFDTBaWxu8P7TigTUNniJkSqTmK9N2-FHLgXD4EzUevMSJ3npf/exec?token=" + token)
                         .then(response => response.json())
                         .then(data => {
@@ -113,7 +113,7 @@
                                 console.error("Erro ao obter link:", data.error);
                             }
                         })
-                        .catch(error => console.error("Erro na requisição:", error));
+                        .catch(error => console.error("Erro na requisiÃ§Ã£o:", error));
                 })
                 .catch(error => console.error("Erro ao autenticar:", error));
         }
