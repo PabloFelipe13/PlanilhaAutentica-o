@@ -59,7 +59,7 @@
     </div>
 
     <script>
-        // Configuração do Firebase
+        // ConfiguraÃ§Ã£o do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDC7zsWQGtdOc7cit7yWsXESwC-qprUCo8", // RESTRINJA A API KEY NO FIREBASE!
             authDomain: "faculdade-9424c.firebaseapp.com",
@@ -79,8 +79,8 @@
                 })
                 .catch(error => {
                     const errorCodes = {
-                        "auth/invalid-email": "Email inválido!",
-                        "auth/user-not-found": "Usuário não encontrado!",
+                        "auth/invalid-email": "Email invÃ¡lido!",
+                        "auth/user-not-found": "UsuÃ¡rio nÃ£o encontrado!",
                         "auth/wrong-password": "Senha incorreta!"
                     };
                     errorMessage.textContent = errorCodes[error.code] || "Erro: " + error.message;
@@ -90,7 +90,7 @@
         function logout() {
             firebase.auth().signOut().then(() => {
                 document.getElementById("logout-button").style.display = "none";
-                window.location.reload(); // Garante que a sessão foi encerrada
+                window.location.reload(); // Garante que a sessÃ£o foi encerrada
             }).catch(error => console.error("Erro ao sair:", error));
         }
 
