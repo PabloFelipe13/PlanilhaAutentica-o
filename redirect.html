@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Seguro</title>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background: #0056b3; }
+        #error-message { color: red; font-size: 14px; margin-top: 10px; }
+        #logout-button { display: none; background: #dc3545; }
+        #logout-button:hover { background: #a71d2a; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Senha">
+        <button onclick="login()">Entrar</button>
+        <p id="error-message"></p>
+        <button id="logout-button" onclick="logout()">Sair</button>
+    </div>
+
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDC7zsWQGtdOc7cit7yWsXESwC-qprUCo8", // RESTRINJA A API KEY NO FIREBASE!
+            authDomain: "faculdade-9424c.firebaseapp.com",
+            projectId: "faculdade-9424c"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        function login() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("error-message");
+            
+            firebase.auth().signInWithEmailAndPassword(email, password)
+                .then(userCredential => {
+                    document.getElementById("logout-button").style.display = "block";
+                    loadSpreadsheet();
+                })
+                .catch(error => {
+                    const errorCodes = {
+                        "auth/invalid-email": "Email inválido!",
+                        "auth/user-not-found": "Usuário não encontrado!",
+                        "auth/wrong-password": "Senha incorreta!"
+                    };
+                    errorMessage.textContent = errorCodes[error.code] || "Erro: " + error.message;
+                });
+        }
+
+        function logout() {
+            firebase.auth().signOut().then(() => {
+                document.getElementById("logout-button").style.display = "none";
+                window.location.reload(); // Garante que a sessão foi encerrada
+            }).catch(error => console.error("Erro ao sair:", error));
+        }
+
+        function loadSpreadsheet() {
+            firebase.auth().currentUser.getIdToken(true)
+                .then(token => {
+                    window.location.replace("https://script.google.com/macros/s/AKfycbyn4Y4XzcnlN5YH8kCxI8A4M837unM9NoM1nT_JYR-eKGOo4RGZ64DCQRiFC4LaKZ1e/exec?token=" + token);
+                })
+                .catch(error => console.error("Erro ao autenticar:", error));
+        }
+
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                document.getElementById("logout-button").style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
