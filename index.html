@@ -110,12 +110,7 @@
         }
 
         function openSpreadsheet() {
-            firebase.auth().currentUser.getIdToken(true)
-                .then((token) => {
-                    const planilhaUrl = "https://script.google.com/macros/s/AKfycbwkUEyL_UycttJlWz79pRO5KK7fu-KktEan48kncEQ/dev?token=" + token;
-                    window.open(planilhaUrl, "_blank");
-                })
-                .catch(error => console.error("Erro ao autenticar:", error));
+            window.open("https://docs.google.com/spreadsheets/", "_blank");
         }
 
         function openDriveFolder() {
