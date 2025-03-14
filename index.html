@@ -124,7 +124,7 @@
         function openDriveFolder() {
             firebase.auth().currentUser.getIdToken(true)
                 .then((token) => {
-                    fetch("https://script.google.com/macros/s/AKfycbw--erUC3FkXMbT-mRm37MDNOw_P3iSxZmCHqkiWVTCsmdHMpBlFYYbb6RXEHXlXz5p/exec?token=" + token)
+                    fetch("https://script.google.com/macros/s/AKfycbx2cwIQSaSznYjT2P8BST85dg-Hlo6OfXUWGx2ZiNdKvS4vl9pxcVXPRw0ySlCQT9HB/exec?token=" + token)
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === "success") {
