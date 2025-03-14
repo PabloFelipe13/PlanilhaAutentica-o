@@ -122,21 +122,27 @@
         }
 
         function openDriveFolder() {
-            firebase.auth().currentUser.getIdToken(true)
-                .then((token) => {
-                    fetch("https://script.google.com/macros/s/AKfycbx2cwIQSaSznYjT2P8BST85dg-Hlo6OfXUWGx2ZiNdKvS4vl9pxcVXPRw0ySlCQT9HB/exec?token=" + token)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.status === "success") {
-                                window.open(data.folderUrl, "_blank");
-                            } else {
-                                console.error("Erro ao obter link:", data.error);
-                            }
-                        })
-                        .catch(error => console.error("Erro na requisição:", error));
-                })
-                .catch(error => console.error("Erro ao autenticar:", error));
-        }
+    firebase.auth().currentUser.getIdToken(true)
+        .then((token) => {
+            fetch("https://script.google.com/macros/s/AKfycbx2cwIQSaSznYjT2P8BST85dg-Hlo6OfXUWGx2ZiNdKvS4vl9pxcVXPRw0ySlCQT9HB/exec?token=" + token, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json()) // Converte a resposta para JSON
+            .then(data => {
+                if (data.status === "success") {
+                    window.open(data.folderUrl, "_blank"); // Abre a pasta no Drive
+                } else {
+                    console.error("Erro ao obter link:", data.error);
+                }
+            })
+            .catch(error => console.error("Erro na requisição:", error));
+        })
+        .catch(error => console.error("Erro ao autenticar:", error));
+}
+
     </script>
 </body>
 </html>
