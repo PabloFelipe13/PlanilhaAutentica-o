@@ -125,8 +125,8 @@
         function deleteLesson() {
             firebase.auth().currentUser.getIdToken(true)
                 .then((token) => {
-                    const planilhaUrl = "https://script.google.com/macros/s/AKfycby0xcEU6yz_kch2cUhZa1k1NvnEnB6lc0ZfqUkb7sE/dev?token=" + token;
-                    window.open(planilhaUrl, "_blank");
+                    const planilhaUrl1 = "https://script.google.com/macros/s/AKfycby0xcEU6yz_kch2cUhZa1k1NvnEnB6lc0ZfqUkb7sE/dev?token=" + token;
+                    window.open(planilhaUrl1, "_blank");
                 })
                 .catch(error => console.error("Erro ao autenticar:", error));
         }
