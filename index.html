@@ -76,8 +76,8 @@
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyDUZU8917t-nxFxdz6AecaLB4w-GWQWRBE",
-            authDomain: "planilhauninga.firebaseapp.com",
-            projectId: "planilhauninga",
+            authDomain: "faculdade-9424c.firebaseapp.com",
+            projectId: "faculdade-9424c",
         };
 
         firebase.initializeApp(firebaseConfig);
@@ -86,6 +86,7 @@
             var email = document.getElementById("email").value;
             var password = document.getElementById("password").value;
             var errorMessage = document.getElementById("error-message");
+            errorMessage.textContent = "";
 
             firebase.auth().signInWithEmailAndPassword(email, password)
                 .then(() => {
@@ -93,10 +94,12 @@
                     document.getElementById("actions-container").classList.remove("hidden");
                 })
                 .catch((error) => {
+                    console.error("Erro de autenticação:", error);
                     switch (error.code) {
                         case "auth/invalid-email": errorMessage.textContent = "Email inválido!"; break;
                         case "auth/user-not-found": errorMessage.textContent = "Usuário não encontrado!"; break;
                         case "auth/wrong-password": errorMessage.textContent = "Senha incorreta!"; break;
+                        case "auth/too-many-requests": errorMessage.textContent = "Muitas tentativas. Tente novamente mais tarde."; break;
                         default: errorMessage.textContent = "Erro: " + error.message;
                     }
                 });
@@ -110,13 +113,18 @@
         }
 
         function openSpreadsheet() {
-            window.open("https://docs.google.com/spreadsheets/", "_blank");
+            firebase.auth().currentUser.getIdToken(true)
+                .then((token) => {
+                    const planilhaUrl = "https://script.google.com/macros/s/AKfycbxSpnulC4cM8HvWZpNmMncIIKMxGoG_-hx7WyDWIZIf-_FVgu6_lvgxNfCDdSu3tmnF/exec?token=" + token;
+                    window.open(planilhaUrl, "_blank");
+                })
+                .catch(error => console.error("Erro ao autenticar:", error));
         }
 
         function openDriveFolder() {
             firebase.auth().currentUser.getIdToken(true)
                 .then((token) => {
-                    fetch("https://script.google.com/macros/s/AKfycbyFI0mybhftjJQdzk-182DvYCWgqKlGv-yYDvURldvDIBnMprBfdL3zsoZuNO252ruP/exec?token=" + token)
+                    fetch("https://script.google.com/macros/s/SEU_SCRIPT_ID/exec?token=" + token)
                         .then(response => response.json())
                         .then(data => {
                             if (data.status === "success") {
@@ -129,7 +137,6 @@
                 })
                 .catch(error => console.error("Erro ao autenticar:", error));
         }
-
     </script>
 </body>
 </html>
