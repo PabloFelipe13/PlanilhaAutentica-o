@@ -115,7 +115,7 @@
         function openSpreadsheet() {
             firebase.auth().currentUser.getIdToken(true)
                 .then((token) => {
-                    const planilhaUrl = "https://script.google.com/macros/s/AKfycbxSpnulC4cM8HvWZpNmMncIIKMxGoG_-hx7WyDWIZIf-_FVgu6_lvgxNfCDdSu3tmnF/exec?token=" + token;
+                    const planilhaUrl = "https://script.google.com/macros/s/AKfycbzlLQ-ikKg-flPmEUCA7htn7RdelkOGcvP3lL0ycUtB7zmXfkEiDzKiW99wGqBry8xt/exec?token=" + token;
                     window.open(planilhaUrl, "_blank");
                 })
                 .catch(error => console.error("Erro ao autenticar:", error));
