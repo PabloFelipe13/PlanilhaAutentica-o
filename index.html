@@ -125,32 +125,14 @@
         function deleteLesson() {
             firebase.auth().currentUser.getIdToken(true)
                 .then((token) => {
-                    const planilhaUrl = "https://script.google.com/macros/s/AKfycbzw1UQxePgMgZxyjodnO0GDnlUCfcQv92HXhQ5oNZQekBYktatHQwONsKKLuLi6gQz1/exec?token=" + token;
+                    const planilhaUrl = "https://script.google.com/macros/s/AKfycbzxiJwu0-SSlWF1IqjLHIYhSDyxpQ_7yHpwzb6rSwoXmSW4MJTu34SIPbfC3aonDeuJ/exec?token=" + token;
                     window.open(planilhaUrl, "_blank");
                 })
                 .catch(error => console.error("Erro ao autenticar:", error));
         }
 
         function openDriveFolder() {
-    firebase.auth().currentUser.getIdToken(true)
-        .then((token) => {
-            fetch("https://script.google.com/macros/s/AKfycby0xcEU6yz_kch2cUhZa1k1NvnEnB6lc0ZfqUkb7sE/dev?token=" + token, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(response => response.json()) // Converte a resposta para JSON
-            .then(data => {
-                if (data.status === "success") {
-                    window.open(data.folderUrl, "_blank"); // Abre a pasta no Drive
-                } else {
-                    console.error("Erro ao obter link:", data.error);
-                }
-            })
-            .catch(error => console.error("Erro na requisição:", error));
-        })
-        .catch(error => console.error("Erro ao autenticar:", error));
+            window.open("https://drive.google.com/", "_blank");
 }
 
     </script>
