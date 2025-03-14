@@ -68,7 +68,8 @@
 
     <div class="container hidden" id="actions-container">
         <h2>Escolha uma ação</h2>
-        <button onclick="openSpreadsheet()">Editar Planilha</button>
+        <button onclick="openSpreadsheet()">Adicionar Aula</button>
+        <button onclick="deleteLesson()">Excluir Aula</button>
         <button onclick="openDriveFolder()">Alimentar Drive</button>
         <button onclick="logout()">Voltar</button>
     </div>
@@ -116,6 +117,15 @@
             firebase.auth().currentUser.getIdToken(true)
                 .then((token) => {
                     const planilhaUrl = "https://script.google.com/macros/s/AKfycbzlLQ-ikKg-flPmEUCA7htn7RdelkOGcvP3lL0ycUtB7zmXfkEiDzKiW99wGqBry8xt/exec?token=" + token;
+                    window.open(planilhaUrl, "_blank");
+                })
+                .catch(error => console.error("Erro ao autenticar:", error));
+        }
+
+        function deleteLesson() {
+            firebase.auth().currentUser.getIdToken(true)
+                .then((token) => {
+                    const planilhaUrl = "https://script.google.com/macros/s/AKfycbzw1UQxePgMgZxyjodnO0GDnlUCfcQv92HXhQ5oNZQekBYktatHQwONsKKLuLi6gQz1/exec?token=" + token;
                     window.open(planilhaUrl, "_blank");
                 })
                 .catch(error => console.error("Erro ao autenticar:", error));
